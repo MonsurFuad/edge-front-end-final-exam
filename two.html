@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav>
+      <a href="one.html">Problem 1</a> | <a href="two.html">Problem 2</a> |
+      <a href="three.html">Problem 3</a> | <a href="four.html">Problem 4</a> |
+      <a href="five.html">Problem 5</a> | <a href="six.html">Problem 6</a> |
+      <a href="seven.html">Problem 7</a> | <a href="eight.html">Problem 8</a> |
+      <a href="nine.html">Problem 9</a>
+    </nav>
+    <br /><br />
+    <h1>Problem 2</h1>
+    <br />
+    <div>
+      <table border="1" id="dataTable">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Mobile</td>
+            <td>Email</td>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data rows will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+    <script>
+      // The URL of the API
+      const url = "https://codeandcareer.com/assignments/api/api.php";
+
+      // Fetch data from the API
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              "Network response was not ok " + response.statusText
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Log data to check the response format
+          console.log(data);
+
+          // Get the table body
+          const tableBody = document
+            .getElementById("dataTable")
+            .getElementsByTagName("tbody")[0];
+
+          // Loop through the data and create rows for each entry
+          data.forEach((item) => {
+            const row = tableBody.insertRow(); // Create a new row
+
+            // Insert the data into cells
+            const cellId = row.insertCell(0);
+            cellId.textContent = item.id; // Assuming 'id' is a field in the API response
+
+            const cellName = row.insertCell(1);
+            cellName.textContent = item.name; // Assuming 'name' is a field in the API response
+
+            const cellMobile = row.insertCell(2);
+            cellMobile.textContent = item.mobile; // Assuming 'mobile' is a field in the API response
+
+            const cellEmail = row.insertCell(3);
+            cellEmail.textContent = item.email; // Assuming 'email' is a field in the API response
+          });
+        })
+        .catch((error) => {
+          console.error("Fetch error: ", error); // Handle errors
+        });
+    </script>
+  </body>
+</html>
